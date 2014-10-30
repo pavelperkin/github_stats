@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :commits
+
   validates :login, presence: true,
                     uniqueness: true
   validates :github_id, presence: true,
