@@ -1,0 +1,21 @@
+%h1 Dashboard
+
+%table
+  %thead
+    %tr
+      %th Id
+      %th Username
+      %th message
+      %th SHA
+      %th url
+  %tbody
+  - @commits.each do |commit|
+    %tr
+      %td=commit.id
+      %td=commit.user.login
+      %td=commit.message
+      %td=commit.sha
+      %td=commit.url
+
+
+
