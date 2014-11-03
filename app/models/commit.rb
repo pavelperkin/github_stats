@@ -11,4 +11,13 @@ class Commit < ActiveRecord::Base
                       numericality: { only_integer: true }
 
   scope :desc, -> { order(commited_at: :desc) }
+
+  after_save do
+    $redis.lpush('new_commits', with_username.to_json)
+  end
+
+  def with_username
+    attributes.merge(username: user.login)
+  end
+
 end
