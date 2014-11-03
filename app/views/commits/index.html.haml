@@ -1,6 +1,6 @@
 %h1 Dashboard
 
-%table
+%table#commits
   %thead
     %tr
       %th Id
@@ -9,13 +9,13 @@
       %th SHA
       %th url
   %tbody
-  - @commits.each do |commit|
-    %tr
-      %td=commit.id
-      %td=commit.user.login
-      %td=commit.message
-      %td=commit.sha
-      %td=commit.url
+    - @commits.each do |commit|
+      %tr
+        %td=commit.id
+        %td=commit.user.login
+        %td=commit.message
+        %td=commit.sha
+        %td=commit.url
 
 
 
