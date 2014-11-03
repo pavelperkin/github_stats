@@ -38,6 +38,7 @@ GEM
     coffee-script-source (1.8.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    ejs (1.1.1)
     erubis (2.7.0)
     execjs (2.2.2)
     haml (4.1.0.beta.1)
@@ -149,6 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  ejs
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
