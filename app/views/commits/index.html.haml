@@ -8,13 +8,14 @@
       %th message
       %th SHA
       %th url
-  - @commits.each do |commit|
-    %tr
-      %td=commit.id
-      %td=commit.user.login
-      %td=commit.message
-      %td=commit.sha
-      %td=commit.url
+  %tbody
+    - @commits.each do |commit|
+      %tr
+        %td=commit.id
+        %td=commit.user.login
+        %td=commit.message
+        %td=commit.sha
+        %td=commit.url
 
 
 
