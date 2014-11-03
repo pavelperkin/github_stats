@@ -1,6 +1,6 @@
 %h1 Dashboard
 
-%table
+%table#commits
   %thead
     %tr
       %th Id
@@ -8,7 +8,6 @@
       %th message
       %th SHA
       %th url
-  %tbody
   - @commits.each do |commit|
     %tr
       %td=commit.id
