@@ -1,0 +1,25 @@
+%p#notice= notice
+
+%h1= @organization.name
+
+%table#commits
+  %thead
+    %tr
+      %th Id
+      %th Username
+      %th message
+      %th SHA
+      %th url
+  %tbody
+    - @commits.each do |commit|
+      %tr
+        %td=commit.id
+        %td=commit.user.login
+        %td=commit.message
+        %td=commit.sha
+        %td=link_to 'View on github', commit.url
+
+
+= link_to 'Edit', edit_organization_path(@organization)
+\|
+= link_to 'Back', organizations_path
