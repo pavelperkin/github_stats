@@ -12,7 +12,7 @@ class Commit < ActiveRecord::Base
 
   scope :desc, -> { order(commited_at: :desc) }
 
-  after_save do
+  after_create do
     $redis.lpush('new_commits', with_username.to_json)
   end
 
