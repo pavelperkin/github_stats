@@ -32,4 +32,5 @@ en:
     are_you_sure: Are you sure?
   submits:
     save: Save
-
+  choose_organization: Choose organization
+  new_organization: New organization

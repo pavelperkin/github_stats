@@ -1,19 +1,10 @@
-%h1 Listing organizations
-
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-
-  - @organizations.each do |organization|
-    %tr
-      %td= organization.name
-      %td= link_to t('links.show'), organization
-      %td= link_to t('links.edit'), edit_organization_path(organization)
-      %td= link_to t('links.destroy'), organization, method: :delete, data: { confirm: t('confirmations.are_you_sure') }
-
-%br
-
-= link_to t('links.new_organization'), new_organization_path
+.row
+  .col-md-4.well
+    %h4=t('choose_organization')
+    %ul
+      - @organizations.each do |organization|
+        %li
+          %h4=link_to organization.name, organization
+    %hr
+    = link_to t('links.new_organization'), new_organization_path, class: 'btn btn-primary'
+  .col-md-8
