@@ -10,10 +10,10 @@
   - @organizations.each do |organization|
     %tr
       %td= organization.name
-      %td= link_to 'Show', organization
-      %td= link_to 'Edit', edit_organization_path(organization)
-      %td= link_to 'Destroy', organization, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to t('links.show'), organization
+      %td= link_to t('links.edit'), edit_organization_path(organization)
+      %td= link_to t('links.destroy'), organization, method: :delete, data: { confirm: t('confirmations.are_you_sure') }
 
 %br
 
-= link_to 'New Organization', new_organization_path
+= link_to t('links.new_organization'), new_organization_path

@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      redirect_to @organization, notice: 'Organization was successfully created.'
+      redirect_to @organization, notice: t('notices.successfully_created', model: 'Organization')
     else
       render :new
     end
@@ -27,7 +27,7 @@ class OrganizationsController < ApplicationController
 
   def update
     if @organization.update(organization_params)
-      redirect_to @organization, notice: 'Organization was successfully updated.'
+      redirect_to @organization, notice: t('notices.successfully_updated', model: 'Organization')
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class OrganizationsController < ApplicationController
 
   def destroy
     @organization.destroy
-    redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
+    redirect_to organizations_url, notice: t('notices.successfully_destroyed', model: 'Organization')
   end
 
   private

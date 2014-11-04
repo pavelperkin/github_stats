@@ -21,7 +21,7 @@ class Organization < ActiveRecord::Base
     begin
       get_data_from_github
     rescue Octokit::NotFound => e
-      errors.add(:organization, 'should exist on github')
+      errors.add(:organization, I18n.t('errors.should_exist_on_github'))
     end
   end
 
