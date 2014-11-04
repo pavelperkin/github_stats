@@ -35,9 +35,7 @@ class OrganizationsController < ApplicationController
 
   def destroy
     @organization.destroy
-    respond_to do |format|
-      redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
-    end
+    redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
   end
 
   private
