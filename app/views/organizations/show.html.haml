@@ -1,6 +1,8 @@
-%h1 Dashboard
+%p#notice= notice
 
-%table#commits
+%h1= @organization.name
+
+%table#commits.table
   %thead
     %tr
       %th Id
@@ -16,3 +18,8 @@
         %td=commit.message
         %td=commit.sha
         %td=link_to 'View on github', commit.url
+
+
+= link_to t('links.edit'), edit_organization_path(@organization)
+\|
+= link_to t('links.back'), organizations_path

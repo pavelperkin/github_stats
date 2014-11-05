@@ -3,10 +3,6 @@ class CommitsController < ApplicationController
 
   before_action :set_sse, only: :stream
 
-  def index
-    @commits = Commit.desc.includes(:user)
-  end
-
   def stream
     begin
       @sse.write($redis.lpop('new_commits'), event: 'results')

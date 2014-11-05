@@ -1,5 +1,6 @@
 class Commit < ActiveRecord::Base
   belongs_to :user
+  belongs_to :organization
   
   validates :url, presence: true,
                   uniqueness: true,
