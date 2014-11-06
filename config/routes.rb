@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'repos/toggle_activation'
 
   resources :organizations
+  resources :repos, only: :show
 
   get 'commits/stream' => 'commits#stream'
   root 'organizations#index'
