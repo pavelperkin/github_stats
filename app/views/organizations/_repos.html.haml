@@ -1,0 +1,6 @@
+%table.table.table-striped
+  %tbody
+    - @repos.each do |repo|
+      %tr
+        %td=repo.name
+        %td=link_to (repo.observed ? "Inactivate" : 'Activate'), repos_toggle_activation_url(repo_id: repo), remote: true
