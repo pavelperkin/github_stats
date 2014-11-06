@@ -5,6 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
-User.create(github_id: 1, login: 'pavelperkin', url: 'https://github.com/pavelperkin', avatar_url: 'https://avatars0.githubusercontent.com/u/2103567?v=2&s=460')
