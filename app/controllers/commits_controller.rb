@@ -5,7 +5,7 @@ class CommitsController < ApplicationController
 
   def stream
     begin
-      @sse.write($redis.lpop('new_commits'), event: 'results')
+      @sse.write($redis.lpop("new_commits_for_#{params["org_id"]}_org"), event: 'results')
     ensure
       @sse.close
     end

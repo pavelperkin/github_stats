@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'repos/toggle_activation'
+
   resources :organizations
 
   get 'commits/stream' => 'commits#stream'
