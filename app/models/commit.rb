@@ -1,6 +1,7 @@
 class Commit < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
+  belongs_to :repo
   
   validates :url, presence: true,
                   uniqueness: true,
@@ -14,7 +15,7 @@ class Commit < ActiveRecord::Base
   scope :desc, -> { order(commited_at: :desc) }
 
   after_create do
-    $redis.lpush('new_commits', with_username.to_json)
+    $redis.lpush("new_commits_for_#{organization_id}_org", with_username.to_json)
   end
 
   def with_username

@@ -1,5 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :commits
+  has_many :repos
   
   validates :name, presence: true, uniqueness: true
   validate :should_exist_on_github, only: :create
@@ -9,10 +10,17 @@ class Organization < ActiveRecord::Base
   def fill_all_data
     data_from_github = get_data_from_github
     set_url(data_from_github.html_url)
+    create_org_repos
   end
 
   def set_url(org_url)
     update(url: org_url)
+  end
+
+  def create_org_repos
+    get_repos.each do |repo|
+      repos.create(name: repo.name, url: repo.html_url)
+    end
   end
 
   private
@@ -27,6 +35,10 @@ class Organization < ActiveRecord::Base
 
   def get_data_from_github
     Octokit.org(name)
+  end
+
+  def get_repos
+    Octokit.organization_repositories(name)
   end
 
 end

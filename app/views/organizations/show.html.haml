@@ -1,23 +1,36 @@
 %p#notice= notice
 
-%h1= @organization.name
+%h1.org_name{id: @organization.id}=link_to @organization.name, @organization.url
 
-%table#commits.table
-  %thead
-    %tr
-      %th Id
-      %th Username
-      %th message
-      %th SHA
-      %th url
-  %tbody
-    - @commits.each do |commit|
-      %tr
-        %td=commit.id
-        %td=commit.user.login
-        %td=commit.message
-        %td=commit.sha
-        %td=link_to 'View on github', commit.url
+.row
+  .col-md-4
+    %table.table.table-striped
+      %tbody
+        - @organization.repos.active.each do |repo|
+          %tr
+            %td=repo.name
+            %td=link_to "Inactivate", repos_toggle_activation_url(repo_id: repo), remote: true
+        - @organization.repos.inactive.each do |repo|
+          %tr
+            %td=repo.name
+            %td=link_to "Activate", repos_toggle_activation_url(repo_id: repo), remote: true
+  .col-md-8
+    %table#commits.table
+      %thead
+        %tr
+          %th Id
+          %th Username
+          %th message
+          %th SHA
+          %th url
+      %tbody
+        - @commits.each do |commit|
+          %tr
+            %td=commit.id
+            %td=commit.user.login
+            %td=commit.message
+            %td=commit.sha
+            %td=link_to 'View on github', commit.url
 
 
 = link_to t('links.edit'), edit_organization_path(@organization)
