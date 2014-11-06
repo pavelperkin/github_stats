@@ -7,6 +7,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @commits = @organization.commits.desc.includes(:user)
+    @repos = @organization.repos.sort_by { |r| r.observed ? 0 : 1 }
   end
 
   def new
