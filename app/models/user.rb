@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :commits
+  has_many :pulls
 
   validates :login, presence: true,
                     uniqueness: true

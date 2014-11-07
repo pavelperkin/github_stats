@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106085835) do
+ActiveRecord::Schema.define(version: 20141106135059) do
 
   create_table "commits", force: true do |t|
     t.integer  "user_id",         null: false
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 20141106085835) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
+  end
+
+  create_table "pulls", force: true do |t|
+    t.integer  "number"
+    t.string   "state"
+    t.text     "title"
+    t.string   "url"
+    t.integer  "user_id"
+    t.integer  "repo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "repos", force: true do |t|
