@@ -3,5 +3,7 @@
     %h3.panel-title=link_to "##{pull.number} (#{pull.state})", pull.url, title: 'View on github'
   .panel-body
     .pull-right
-      comments
+      =link_to "comments (#{pull.comments.count})", '#', class: 'toggle_comments', id: pull.id
     =pull.title
+    .comments{id: "comments_#{pull.id}", :style=>"display:none;"}
+      =render 'pull_request_comments', comments: pull.comments

@@ -4,5 +4,5 @@
   =link_to @repo.name, @repo.url
   =observe_label(@repo)
 
--@repo.pulls.each do |pr|
+-@pulls.each do |pr|
   = render 'pull_request', pull: pr
