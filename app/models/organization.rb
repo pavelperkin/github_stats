@@ -38,7 +38,7 @@ class Organization < ActiveRecord::Base
   end
 
   def get_repos
-    Octokit.organization_repositories(name)
+    Octokit.organization_repositories(name, per_page: 500)
   end
 
 end
