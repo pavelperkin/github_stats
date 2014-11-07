@@ -19,8 +19,31 @@ class Commit < ActiveRecord::Base
     $redis.lpush("new_commits_for_#{organization_id}_org", with_username.to_json)
   end
 
+  after_create :get_commit_comments
+
   def with_username
     attributes.merge(username: user.login)
+  end
+
+  def get_commit_comments
+    Octokit.commit_comments("#{organization.name}/#{repo.name}", sha).each do |cc|
+      comments.create(user_id: get_user_id(cc.user), body: cc.body, commented_at: cc.created_at)
+    end
+  end
+
+  def get_user_id(data)
+    (find_user(data) || create_user(data)).id
+  end
+
+  def find_user(data)
+    User.find_by(github_id: data.id)
+  end
+
+  def create_user(data)
+    User.create(github_id: data.id,
+                login: data.login,
+                url: data.html_url,
+                avatar_url: data.avatar_url)
   end
 
 end
