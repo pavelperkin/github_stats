@@ -2,6 +2,7 @@ class Commit < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
   belongs_to :repo
+  has_many :comments, as: :commentable
   
   validates :url, presence: true,
                   uniqueness: true,
