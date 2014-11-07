@@ -10,6 +10,7 @@ class ReposController < ApplicationController
 
   def show
     @repo = Repo.find(params[:id])
+    @pulls = @repo.pulls.includes(:comments)
   end
 
 end
