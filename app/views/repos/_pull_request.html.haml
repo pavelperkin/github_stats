@@ -1,0 +1,7 @@
+.panel{class: pull_state_panel(pull.state)}
+  .panel-heading
+    %h3.panel-title=link_to "##{pull.number} (#{pull.state})", pull.url, title: 'View on github'
+  .panel-body
+    .pull-right
+      comments
+    =pull.title
