@@ -21,7 +21,7 @@ class Repo < ActiveRecord::Base
 
   def get_todays_commits
     Thread.new do
-      Octokit.commits_since("#{organization.name}/#{name}", Date.today, per_page: 100).each do |commit|
+      Octokit.commits_since("#{organization.name}/#{name}", Date.today, per_page: 100).reverse.each do |commit|
         commits.create(user_id: get_user_id(commit.author),
                        message: commit.commit.message,
                        url: commit.html_url,
