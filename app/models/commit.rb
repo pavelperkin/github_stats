@@ -12,6 +12,10 @@ class Commit < ActiveRecord::Base
   validates :commited_at, presence: true
   validates :user_id, presence: true,
                       numericality: { only_integer: true }
+  validates :organization_id, presence: true,
+                      numericality: { only_integer: true }
+  validates :repo_id, presence: true,
+                      numericality: { only_integer: true }
 
   scope :desc, -> { order(commited_at: :desc) }
 

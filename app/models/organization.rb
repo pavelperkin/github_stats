@@ -3,9 +3,17 @@ class Organization < ActiveRecord::Base
   has_many :repos
   
   validates :name, presence: true, uniqueness: true
+  validates :url, presence: true,
+                  uniqueness: true,
+                  format: { with: URI.regexp }, on: :update
   validate :should_exist_on_github, only: :create
 
+  before_validation :strip_name
   after_create :fill_all_data
+
+  def strip_name
+    name.strip!
+  end
 
   def fill_all_data
     data_from_github = get_data_from_github

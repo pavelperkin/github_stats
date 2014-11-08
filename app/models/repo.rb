@@ -3,6 +3,13 @@ class Repo < ActiveRecord::Base
   has_many :pulls
   belongs_to :organization
 
+  validates :name, presence: true, uniqueness: { scope: :organization }
+  validates :url, presence: true,
+                  uniqueness: true,
+                  format: { with: URI.regexp }
+  validates :organization_id, presence: true,
+                              numericality: { only_integer: true }
+
   after_update :get_todays_commits, if: Proc.new { |obj| obj.observed }
   after_update :get_pulls, if: Proc.new { |obj| obj.observed }
 
