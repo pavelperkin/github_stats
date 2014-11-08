@@ -12,38 +12,33 @@ class Commit < ActiveRecord::Base
   validates :commited_at, presence: true
   validates :user_id, presence: true,
                       numericality: { only_integer: true }
+  validates :organization_id, presence: true,
+                      numericality: { only_integer: true }
+  validates :repo_id, presence: true,
+                      numericality: { only_integer: true }
 
   scope :desc, -> { order(commited_at: :desc) }
 
   after_create do
-    $redis.lpush("new_commits_for_#{organization_id}_org", with_username.to_json)
+    $redis.lpush(redis_queue, with_username.to_json)
   end
 
   after_create :get_commit_comments
 
-  def with_username
-    attributes.merge(username: user.login)
-  end
-
   def get_commit_comments
-    Octokit.commit_comments("#{organization.name}/#{repo.name}", sha).each do |cc|
-      comments.create(user_id: get_user_id(cc.user), body: cc.body, commented_at: cc.created_at)
+    Octokit.commit_comments(repo.full_name, sha).each do |cc|
+      comments.create(user: User.get_user(cc.user), body: cc.body, commented_at: cc.created_at)
     end
   end
 
-  def get_user_id(data)
-    (find_user(data) || create_user(data)).id
+  private
+
+  def redis_queue
+    "new_commits_for_#{organization_id}_org"
   end
 
-  def find_user(data)
-    User.find_by(github_id: data.id)
-  end
-
-  def create_user(data)
-    User.create(github_id: data.id,
-                login: data.login,
-                url: data.html_url,
-                avatar_url: data.avatar_url)
+  def with_username
+    attributes.merge(username: user.login)
   end
 
 end

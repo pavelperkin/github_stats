@@ -1,16 +1,20 @@
 class ReposController < ApplicationController
-
+  before_action :get_repo
   respond_to :js, :html
 
   def toggle_activation
-    repo = Repo.find(params[:repo_id])
-    repo.update(observed: !repo.observed)
-    @repos = repo.organization.repos.sort_by { |r| r.observed ? 0 : 1 }
+    @repo.update(observed: !@repo.observed)
+    @repos = @repo.organization.get_sorted_repos
   end
 
   def show
-    @repo = Repo.find(params[:id])
     @pulls = @repo.pulls.includes(:comments)
+  end
+
+  private
+
+  def get_repo
+    @repo = Repo.find(params[:id])
   end
 
 end

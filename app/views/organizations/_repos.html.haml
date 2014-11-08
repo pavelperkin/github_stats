@@ -3,4 +3,4 @@
     - @repos.each do |repo|
       %tr
         %td=link_to repo.name, repo
-        %td=link_to (repo.observed ? "Inactivate" : 'Activate'), repos_toggle_activation_url(repo_id: repo), remote: true
+        %td=link_to (repo.observed ? "Inactivate" : 'Activate'), repos_toggle_activation_url(id: repo), remote: true
