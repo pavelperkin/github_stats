@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
 
   class << self
 
-    def get_user_id(data)
-      (find_user(data) || create_user(data)).id
+    def get_user(data)
+      (find_user(data) || create_user(data))
     end
 
     def find_user(data)

@@ -13,10 +13,14 @@ class Repo < ActiveRecord::Base
   after_update :get_todays_commits, if: Proc.new { |obj| obj.observed }
   after_update :get_pulls, if: Proc.new { |obj| obj.observed }
 
+  def full_name
+    "#{organization.name}/#{name}"
+  end
+
   def get_pulls
     Thread.new do
-      Octokit.pull_requests("#{organization.name}/#{name}", state: 'all', per_page: 100).each do |pr|
-        pulls.create(user_id: User.get_user_id(pr.user),
+      Octokit.pull_requests(full_name, state: 'all', per_page: 100).each do |pr|
+        pulls.create(user: User.get_user(pr.user),
                      state: pr.state,
                      number: pr.number,
                      title: pr.title,
@@ -28,8 +32,8 @@ class Repo < ActiveRecord::Base
 
   def get_todays_commits
     Thread.new do
-      Octokit.commits_since("#{organization.name}/#{name}", Date.today, per_page: 100).reverse.each do |commit|
-        commits.create(user_id: User.get_user_id(commit.author),
+      Octokit.commits_since(full_name, Date.today, per_page: 100).reverse.each do |commit|
+        commits.create(user: User.get_user(commit.author),
                        message: commit.commit.message,
                        url: commit.html_url,
                        sha: commit.sha,

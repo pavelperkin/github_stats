@@ -19,8 +19,8 @@ class Pull < ActiveRecord::Base
   after_create :get_pull_comments
 
   def get_pull_comments
-    Octokit.pull_request_comments("#{repo.organization.name}/#{repo.name}", number).each do |prc|
-      comments.create(user_id: User.get_user_id(prc.user), body: prc.body, commented_at: prc.created_at)
+    Octokit.pull_request_comments(repo.full_name, number).each do |prc|
+      comments.create(user: User.get_user(prc.user), body: prc.body, commented_at: prc.created_at)
     end
   end
 
