@@ -20,7 +20,7 @@ class Pull < ActiveRecord::Base
 
   def get_pull_comments
     Octokit.pull_request_comments(repo.full_name, number).each do |prc|
-      comments.create(user: User.get_user(prc.user), body: prc.body, commented_at: prc.created_at)
+      comments.create(Comment.parse_data(prc))
     end
   end
 

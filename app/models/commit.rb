@@ -27,7 +27,7 @@ class Commit < ActiveRecord::Base
 
   def get_commit_comments
     Octokit.commit_comments(repo.full_name, sha).each do |cc|
-      comments.create(user: User.get_user(cc.user), body: cc.body, commented_at: cc.created_at)
+      comments.create(Comment.parse_data(cc))
     end
   end
 

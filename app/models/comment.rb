@@ -7,4 +7,13 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true,
                       numericality: { only_integer: true }
 
+  class << self
+
+    def parse_data(data)
+      { user: User.get_user(data.user),
+        body: data.body,
+        commented_at: data.created_at }
+    end
+
+  end
 end
