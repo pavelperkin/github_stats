@@ -18,6 +18,18 @@ class Pull < ActiveRecord::Base
 
   after_create :get_pull_comments
 
+  class << self
+
+    def parse_data(data)
+      { user: User.get_user(data.user),
+        state: data.state,
+        number: data.number,
+        title: data.title,
+        url: data.html_url }
+    end
+
+  end
+
   def get_pull_comments
     Octokit.pull_request_comments(repo.full_name, number).each do |prc|
       comments.create(Comment.parse_data(prc))

@@ -20,11 +20,7 @@ class Repo < ActiveRecord::Base
   def get_pulls
     Thread.new do
       Octokit.pull_requests(full_name, state: 'all', per_page: 100).each do |pr|
-        pulls.create(user: User.get_user(pr.user),
-                     state: pr.state,
-                     number: pr.number,
-                     title: pr.title,
-                     url: pr.html_url)
+        pulls.create(Pull.parse_data(pr))
       end
       ActiveRecord::Base.connection.close
     end
@@ -33,12 +29,7 @@ class Repo < ActiveRecord::Base
   def get_todays_commits
     Thread.new do
       Octokit.commits_since(full_name, Date.today, per_page: 100).reverse.each do |commit|
-        commits.create(user: User.get_user(commit.author),
-                       message: commit.commit.message,
-                       url: commit.html_url,
-                       sha: commit.sha,
-                       commited_at: commit.commit.committer.date,
-                       organization_id: organization.id)
+        commits.create(Commit.parse_data(commit).merge(organization: organization))
       end
       ActiveRecord::Base.connection.close
     end

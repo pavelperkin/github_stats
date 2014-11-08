@@ -25,6 +25,18 @@ class Commit < ActiveRecord::Base
 
   after_create :get_commit_comments
 
+  class << self
+
+    def parse_data(data)
+      { user: User.get_user(data.author),
+        message: data.commit.message,
+        url: data.html_url,
+        sha: data.sha,
+        commited_at: data.commit.committer.date }
+    end
+
+  end
+
   def get_commit_comments
     Octokit.commit_comments(repo.full_name, sha).each do |cc|
       comments.create(Comment.parse_data(cc))
