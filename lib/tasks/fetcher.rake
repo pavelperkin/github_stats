@@ -15,9 +15,13 @@ def get_commits(repo)
   end
 end
 
-
 def get_pulls(repo)
   Octokit.pull_requests(repo.full_name, state: 'all', per_page: 10).each do |pr|
-    repo.pulls.create(Pull.parse_data(pr))
+    old_pull = repo.pulls.where(number: pr.number).first
+    if old_pull.present?
+      old_pull.update(Pull.parse_data(pr)) if old_pull.last_update < pr.updated_at
+    else
+      repo.pulls.create(Pull.parse_data(pr))
+    end
   end
 end
