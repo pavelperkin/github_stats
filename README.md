@@ -1,6 +1,6 @@
-{<img src="https://codeclimate.com/github/pavelperkin/github_stats/badges/gpa.svg" />}[https://codeclimate.com/github/pavelperkin/github_stats]
+[![Code Climate](https://codeclimate.com/github/pavelperkin/github_stats/badges/gpa.svg)](https://codeclimate.com/github/pavelperkin/github_stats)
 
-{<img src="https://codeclimate.com/github/pavelperkin/github_stats/badges/coverage.svg" />}[https://codeclimate.com/github/pavelperkin/github_stats]
+[![Test Coverage](https://codeclimate.com/github/pavelperkin/github_stats/badges/coverage.svg)](https://codeclimate.com/github/pavelperkin/github_stats)
 
 Configuration:
 
