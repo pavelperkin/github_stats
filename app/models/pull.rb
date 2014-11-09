@@ -35,9 +35,13 @@ class Pull < ActiveRecord::Base
   end
 
   def get_pull_comments
-    Octokit.pull_request_comments(repo.full_name, number).each do |prc|
+    get_comments_from_github.each do |prc|
       comments.create(Comment.parse_data(prc))
     end
+  end
+
+  def get_comments_from_github
+    Octokit.pull_request_comments(repo.full_name, number)
   end
 
 end

@@ -4,6 +4,8 @@ task scrape_github: :environment  do
     org.repos.active.each do |repo|
       get_commits(repo)
       get_pulls(repo)
+      get_comments(repo.pulls)
+      get_comments(repo.commits)
       logger.info "Finished at #{Time.now}"
     end
   end
@@ -22,6 +24,16 @@ def get_pulls(repo)
       old_pull.update(Pull.parse_data(pr)) if old_pull.last_update < pr.updated_at
     else
       repo.pulls.create(Pull.parse_data(pr))
+    end
+  end
+end
+
+def get_comments(comment_objects)
+  comment_objects.each do |co|
+    co.get_comments_from_github.each do |comment|
+      if co.comments.find_by(github_id: comment.id).nil?
+        co.comments.create(Comment.parse_data(comment))
+      end
     end
   end
 end

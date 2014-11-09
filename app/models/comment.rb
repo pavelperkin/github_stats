@@ -6,13 +6,17 @@ class Comment < ActiveRecord::Base
   validates :commented_at, presence: true
   validates :user_id, presence: true,
                       numericality: { only_integer: true }
+  validates :github_id, presence: true,
+                        numericality: { only_integer: true },
+                        uniqueness: { scope: :commentable }
 
   class << self
 
     def parse_data(data)
       { user: User.get_user(data.user),
         body: data.body,
-        commented_at: data.created_at }
+        commented_at: data.created_at,
+        github_id: data.id }
     end
 
   end
