@@ -10,11 +10,17 @@ class Repo < ActiveRecord::Base
   validates :organization_id, presence: true,
                               numericality: { only_integer: true }
 
+  scope :active, -> { where(observed: true) }
+
   after_update :get_todays_commits, if: Proc.new { |obj| obj.observed }
   after_update :get_pulls, if: Proc.new { |obj| obj.observed }
 
   def full_name
     "#{organization.name}/#{name}"
+  end
+
+  def last_updated
+    commits.last.try(:commited_at) || Date.today
   end
 
   def get_pulls
