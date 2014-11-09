@@ -8,6 +8,7 @@ class Pull < ActiveRecord::Base
                      numericality: { only_integer: true }
   validates :state, inclusion: { in: %w(open closed)}
   validates :title, presence: true
+  validates :last_update, presence: true
   validates :url, presence: true,
                   uniqueness: true,
                   format: { with: URI.regexp }
@@ -18,6 +19,8 @@ class Pull < ActiveRecord::Base
 
   after_create :get_pull_comments
 
+  scope :desc, -> { order(number: :desc) }
+
   class << self
 
     def parse_data(data)
@@ -25,7 +28,8 @@ class Pull < ActiveRecord::Base
         state: data.state,
         number: data.number,
         title: data.title,
-        url: data.html_url }
+        url: data.html_url,
+        last_update: data.updated_at }
     end
 
   end
