@@ -25,7 +25,7 @@ class Repo < ActiveRecord::Base
 
   def get_pulls
     Thread.new do
-      Octokit.pull_requests(full_name, state: 'all', per_page: 100).each do |pr|
+      Octokit.pull_requests(full_name, state: 'all', per_page: 100).reverse.each do |pr|
         pulls.create(Pull.parse_data(pr))
       end
       ActiveRecord::Base.connection.close

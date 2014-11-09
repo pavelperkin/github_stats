@@ -8,7 +8,7 @@ class ReposController < ApplicationController
   end
 
   def show
-    @pulls = @repo.pulls.includes(:comments)
+    @pulls = @repo.pulls.desc.includes(:comments)
   end
 
   private

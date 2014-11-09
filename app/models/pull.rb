@@ -19,6 +19,8 @@ class Pull < ActiveRecord::Base
 
   after_create :get_pull_comments
 
+  scope :desc, -> { order(number: :desc) }
+
   class << self
 
     def parse_data(data)
