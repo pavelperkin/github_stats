@@ -1,28 +1,20 @@
-== README
+Configuration:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+When you in root dir of Github Stats you should run: 
+`whenever -i
+=> [write] crontab file updated`
 
-Things you may want to cover:
+This comand will create a cron task for fetching data from github.
+If you work not in production then you should update crontab:
 
-* Ruby version
+Run:
+`crontab -e`
 
-* System dependencies
+And change RAILS_ENV to your environment in:
+`0,20,40 * * * * bash -l -c 'cd /Users/pavelperkin/projects/pets/github && RAILS_ENV=production bundle exec rake scrape_github --silent`
 
-* Configuration
+Save changes.
 
-* Database creation
+You will get:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+`crontab: installing new crontab`.
