@@ -38,9 +38,13 @@ class Commit < ActiveRecord::Base
   end
 
   def get_commit_comments
-    Octokit.commit_comments(repo.full_name, sha).each do |cc|
+    get_comments_from_github.each do |cc|
       comments.create(Comment.parse_data(cc))
     end
+  end
+
+  def get_comments_from_github
+    Octokit.commit_comments(repo.full_name, sha)
   end
 
   private
