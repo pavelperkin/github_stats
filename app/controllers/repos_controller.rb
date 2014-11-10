@@ -9,6 +9,7 @@ class ReposController < ApplicationController
 
   def show
     @pulls = @repo.pulls.desc.includes(:comments)
+    @users = User.most_active_for_last_hour_for_repo(@repo)
   end
 
   private
