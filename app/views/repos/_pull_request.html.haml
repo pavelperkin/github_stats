@@ -1,6 +1,6 @@
 .panel{class: pull_state_panel(pull.state)}
   .panel-heading
-    %h3.panel-title=link_to "##{pull.number} (#{pull.state}) - #{l pull.last_update, format: :short}", pull.url, title: 'View on github'
+    %h3.panel-title=link_to "##{pull.number} (#{pull.state}) - #{l pull.last_update, format: :short}", pull.url, title: t('links.on_github')
   .panel-body
     .pull-right
       =link_to "comments (#{pull.comments.count})", '#', class: 'toggle_comments', id: pull.id

@@ -1,9 +1,9 @@
 %table#commits.table
   %thead
     %tr
-      %th Username
-      %th Repo
-      %th Message
+      %th= t('commit.username')
+      %th= t('commit.repo')
+      %th= t('commit.message')
       %th
   %tbody
     - @commits.each do |commit|
@@ -11,4 +11,4 @@
         %td=link_to commit.user.login, commit.user.url
         %td=commit.repo.name
         %td=truncate(commit.message, omission: "...", length: 80)
-        %td=link_to 'On github', commit.url, class: 'btn btn-primary'
+        %td=link_to t('links.on_github'), commit.url, class: 'btn btn-primary'

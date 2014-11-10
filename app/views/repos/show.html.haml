@@ -9,7 +9,7 @@
     -@pulls.each do |pr|
       = render 'pull_request', pull: pr
   .col-md-4.well
-    %h3 Most active users for last hour
+    %h3=t('headers.most_active_for_last_hour')
     -@users.each do |user|
       =render 'users/active_user', user: user
 
