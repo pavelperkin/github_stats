@@ -3,7 +3,7 @@
 %h1.org_name{id: @organization.id}=link_to @organization.name, @organization.url
 
 .row
-  .col-md-4#org_repos
+  .col-md-4#org_repos.well
     = render 'repos'
   .col-md-8#org_commits
     = render 'commits'
