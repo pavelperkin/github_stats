@@ -23,6 +23,7 @@ en:
     destroy: Destroy
     new_organization: New organization
     on_github: On github
+    organizations: Organizations
   headers:
     most_active_for_last_day: Most active users for last 24h
     most_active_for_last_hour: Most active users for last hour
