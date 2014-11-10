@@ -6,4 +6,4 @@
         %b=link_to "#{comment.user.login}:", comment.user.url
         ="#{comment.body} (#{l comment.commented_at, format: :short})"
 -else
-  No comments.
+  %p=t('notices.no_comments')

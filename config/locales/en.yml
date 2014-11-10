@@ -22,7 +22,13 @@ en:
     show: Show
     destroy: Destroy
     new_organization: New organization
+    on_github: On github
+    organizations: Organizations
+  headers:
+    most_active_for_last_day: Most active users for last 24h
+    most_active_for_last_hour: Most active users for last hour
   notices:
+    no_comments: No comments
     successfully_created: '%{model} was successfully created.'
     successfully_updated: '%{model} was successfully updated.'
     successfully_destroyed: '%{model} was successfully destroyed.'
@@ -34,3 +40,11 @@ en:
     save: Save
   choose_organization: Choose organization
   new_organization: New organization
+  commit:
+    username: Username
+    repo: Repo
+    message: Message
+  repo:
+    activate: Activate
+    deactivate: Deactivate
+
