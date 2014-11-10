@@ -8,3 +8,6 @@
     %hr
     = link_to t('links.new_organization'), new_organization_path, class: 'btn btn-primary'
   .col-md-8
+    %h2 Most active users for last 24h
+    -@users.each do |user|
+      =render 'users/active_user', user: user

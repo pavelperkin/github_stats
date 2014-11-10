@@ -1,0 +1,5 @@
+.media
+  =link_to(user.url, class: 'media-left') do
+    =image_tag user.avatar_url, size: "90x90", alt: user.login
+  .media-body
+    %h3.media-heading= link_to "##{user.login}", user.url
