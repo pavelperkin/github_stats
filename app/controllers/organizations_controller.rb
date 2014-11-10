@@ -3,6 +3,7 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.all
+    @users = User.most_active_for_last_day
   end
 
   def show

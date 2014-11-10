@@ -4,5 +4,13 @@
   =link_to @repo.name, @repo.url
   =observe_label(@repo)
 
--@pulls.each do |pr|
-  = render 'pull_request', pull: pr
+.row
+  .col-md-8
+    -@pulls.each do |pr|
+      = render 'pull_request', pull: pr
+  .col-md-4.well
+    %h3 Most active users for last hour
+    -@users.each do |user|
+      =render 'users/active_user', user: user
+
+
