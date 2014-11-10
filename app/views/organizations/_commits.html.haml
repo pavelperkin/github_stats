@@ -1,16 +1,14 @@
 %table#commits.table
   %thead
     %tr
-      %th Id
       %th Username
-      %th message
-      %th SHA
-      %th url
+      %th Repo
+      %th Message
+      %th
   %tbody
     - @commits.each do |commit|
       %tr
-        %td=commit.id
-        %td=commit.user.login
-        %td=commit.message
-        %td=commit.sha
-        %td=link_to 'View on github', commit.url
+        %td=link_to commit.user.login, commit.user.url
+        %td=commit.repo.name
+        %td=truncate(commit.message, omission: "...", length: 80)
+        %td=link_to 'On github', commit.url, class: 'btn btn-primary'
