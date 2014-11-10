@@ -5,5 +5,5 @@
     .pull-right
       =link_to "comments (#{pull.comments.count})", '#', class: 'toggle_comments', id: pull.id
     =pull.title
-    .comments{id: "comments_#{pull.id}", :style=>"display:none;"}
+    .comments{id: "comments_#{pull.id}", style: "display:none;"}
       =render 'pull_request_comments', comments: pull.comments
