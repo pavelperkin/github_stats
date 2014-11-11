@@ -20,7 +20,7 @@ gem 'whenever'
 group :test do
   gem 'simplecov', '0.9.1', require: false
   gem "codeclimate-test-reporter", '0.4.1', require: false
-  gem 'factory_girl', '4.4.0'
+  gem 'factory_girl_rails'
   gem 'database_cleaner', '1.3.0'
 end
 
