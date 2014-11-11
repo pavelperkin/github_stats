@@ -12,8 +12,7 @@ class Repo < ActiveRecord::Base
 
   scope :active, -> { where(observed: true) }
 
-  after_update :get_todays_commits, if: Proc.new { |obj| obj.observed }
-  after_update :get_pulls, if: Proc.new { |obj| obj.observed }
+  after_update :get_todays_commits, :get_pulls, if: Proc.new { |obj| obj.observed }
 
   def full_name
     "#{organization.name}/#{name}"
@@ -22,6 +21,14 @@ class Repo < ActiveRecord::Base
   def last_updated
     commits.last.try(:commited_at) || Date.today
   end
+
+  def get_commits(period, per_page=100)
+    Octokit.commits_since(full_name, period, per_page: per_page).reverse.each do |commit|
+      commits.create(Commit.parse_data(commit).merge(organization: organization))
+    end
+  end
+
+  private
 
   def get_pulls
     Thread.new do
@@ -34,9 +41,7 @@ class Repo < ActiveRecord::Base
 
   def get_todays_commits
     Thread.new do
-      Octokit.commits_since(full_name, 1.day.ago, per_page: 100).reverse.each do |commit|
-        commits.create(Commit.parse_data(commit).merge(organization: organization))
-      end
+      get_commits(1.day.ago)
       ActiveRecord::Base.connection.close
     end
   end
