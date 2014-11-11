@@ -44,7 +44,5 @@ class User < ActiveRecord::Base
           .where('commits.repo_id = ?', repo.id)
           .first(10)
     end
-
   end
-
 end
