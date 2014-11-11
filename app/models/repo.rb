@@ -34,7 +34,7 @@ class Repo < ActiveRecord::Base
 
   def get_todays_commits
     Thread.new do
-      Octokit.commits_since(full_name, Date.today, per_page: 100).reverse.each do |commit|
+      Octokit.commits_since(full_name, 1.day.ago, per_page: 100).reverse.each do |commit|
         commits.create(Commit.parse_data(commit).merge(organization: organization))
       end
       ActiveRecord::Base.connection.close
