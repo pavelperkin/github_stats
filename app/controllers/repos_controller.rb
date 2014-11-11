@@ -4,7 +4,7 @@ class ReposController < ApplicationController
 
   def toggle_activation
     @repo.update(observed: !@repo.observed)
-    @repos = @repo.organization.get_sorted_repos
+    @repos = @repo.organization.repos
   end
 
   def show

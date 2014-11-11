@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :commits
-  has_many :repos
+  has_many :repos, -> { order(observed: :asc) }
   
   validates :name, presence: true, uniqueness: true
   validates :url, presence: true,
@@ -15,14 +15,8 @@ class Organization < ActiveRecord::Base
     name.strip!
   end
 
-  def get_sorted_repos
-    # I believe I can use some SQL scope...
-    repos.sort_by { |r| r.observed ? 0 : 1 }
-  end
-
   def fill_all_data
-    data_from_github = get_data_from_github
-    set_url(data_from_github.html_url)
+    set_url(get_data_from_github.html_url)
     create_org_repos
   end
 

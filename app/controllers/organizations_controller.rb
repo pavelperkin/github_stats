@@ -8,7 +8,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @commits = @organization.commits.desc.includes(:user)
-    @repos = @organization.get_sorted_repos
+    @repos = @organization.repos
   end
 
   def new
