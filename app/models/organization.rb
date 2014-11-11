@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :commits
-  has_many :repos, -> { order(observed: :asc) }
+  has_many :repos, -> { order(observed: :desc) }
   
   validates :name, presence: true, uniqueness: true
   validates :url, presence: true,
@@ -11,17 +11,9 @@ class Organization < ActiveRecord::Base
   before_validation :strip_name
   after_create :fill_all_data
 
-  def strip_name
-    name.strip!
-  end
-
   def fill_all_data
     set_url(get_data_from_github.html_url)
     create_org_repos
-  end
-
-  def set_url(org_url)
-    update(url: org_url)
   end
 
   def create_org_repos
@@ -31,6 +23,14 @@ class Organization < ActiveRecord::Base
   end
 
   private
+
+  def strip_name
+    name.strip!
+  end
+
+  def set_url(org_url)
+    update(url: org_url)
+  end
 
   def should_exist_on_github
     begin

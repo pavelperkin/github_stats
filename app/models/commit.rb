@@ -19,11 +19,7 @@ class Commit < ActiveRecord::Base
 
   scope :desc, -> { order(commited_at: :desc) }
 
-  after_create do
-    $redis.lpush(redis_queue, with_username.to_json)
-  end
-
-  after_create :get_commit_comments
+  after_create :push_to_redis_queue, :get_commit_comments
 
   class << self
 
@@ -47,14 +43,18 @@ class Commit < ActiveRecord::Base
     Octokit.commit_comments(repo.full_name, sha)
   end
 
+  def push_to_redis_queue
+    $redis.lpush(redis_queue, with_username_and_repo.to_json)
+  end
+
   private
 
   def redis_queue
     "new_commits_for_#{organization_id}_org"
   end
 
-  def with_username
-    attributes.merge(username: user.login)
+  def with_username_and_repo
+    attributes.merge(username: user.login, repo_name: repo.name)
   end
 
 end

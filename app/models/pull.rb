@@ -17,9 +17,9 @@ class Pull < ActiveRecord::Base
   validates :repo_id, presence: true,
                       numericality: { only_integer: true }
 
-  after_create :get_pull_comments
-
   scope :desc, -> { order(number: :desc) }
+
+  after_create :get_pull_comments
 
   class << self
 

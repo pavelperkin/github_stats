@@ -12,9 +12,7 @@ task scrape_github: :environment  do
 end
 
 def get_commits(repo)
-  Octokit.commits_since(repo.full_name, repo.last_updated, per_page: 100).reverse.each do |commit|
-    repo.commits.create(Commit.parse_data(commit).merge(organization: repo.organization))
-  end
+  repo.get_commits(repo.last_updated, 100)
 end
 
 def get_pulls(repo)
