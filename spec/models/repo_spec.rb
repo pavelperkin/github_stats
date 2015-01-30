@@ -12,6 +12,12 @@ RSpec.describe Repo, type: :model do
     end
   end
 
+  describe 'failed test' do
+    it 'should just fail' do
+      expect(true).to eql(false)
+    end
+  end
+
   describe '#last_updated' do
     context 'if repo has no commits' do
       it 'should return today date' do
