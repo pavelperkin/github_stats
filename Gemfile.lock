@@ -185,6 +185,7 @@ DEPENDENCIES
   quiet_assets (= 1.0.2)
   rails (= 4.1.4)
   rails-i18n (~> 4.0.0)
+  rake (= 11.2.2)
   redis (= 3.1.0)
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
