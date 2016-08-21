@@ -17,7 +17,6 @@ services:
 test:
   prepare:
     - bundle install
-    - gem install rake
     - bin/rake db:create
   service: rails
   dependencies: [postgresql, redis]
@@ -30,12 +29,12 @@ test:
 
 staging:
   prepare:
-    - bundle install --path /bundle
+    - bundle install
     - bin/rake db:create db:migrate db:seed
   service: rails
-  dependencies: [postgresql]
+  dependencies: [postgresql, redis]
   folder: /app
-  cmd: bin/rails s -p 80
+  cmd: foreman start
   port: 80
   env:
     - RAILS_ENV=production
