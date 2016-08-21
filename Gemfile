@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '4.1.4'
-gem 'mysql2', '0.3.16'
+gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -16,6 +16,7 @@ gem "octokit", "~> 3.0"
 gem 'rails-i18n', '~> 4.0.0'
 gem 'spring', '1.1.3', group: :development
 gem 'whenever'
+gem 'rake', '11.2.2'
 
 group :test do
   gem 'simplecov', '0.9.1', require: false
