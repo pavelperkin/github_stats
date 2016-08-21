@@ -34,7 +34,7 @@ staging:
   service: rails
   dependencies: [postgresql, redis]
   folder: /app
-  cmd: foreman start
+  cmd: puma
   port: 80
   env:
     - RAILS_ENV=production
