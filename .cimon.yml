@@ -15,6 +15,7 @@ services:
 test:
   prepare:
     - bundle install --path /bundle
+    - gem install rake
     - bin/rake db:create
   service: rails
   dependencies: [postgresql]
