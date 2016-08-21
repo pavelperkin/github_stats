@@ -8,7 +8,7 @@ services:
     build:
       - apt-get update
       - apt-get install -y libqt4-dev pkg-config
-      - apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev
+      - apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev nodejs
       - apt-get install build-essential
       - gem install foreman
 
